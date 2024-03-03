@@ -2,11 +2,11 @@ import { FormControl } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
 import { Box, Text } from "@chakra-ui/layout";
 import "./styles.css";
-import { IconButton, Spinner, useToast } from "@chakra-ui/react";
+import { Button, IconButton, Spinner, useToast } from "@chakra-ui/react";
 import { getSender, getSenderFull } from "../config/ChatLogics";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { ArrowBackIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import ProfileModal from "./miscellaneous/ProfileModal";
 import ScrollableChat from "./ScrollableChat.js";
 import Lottie from "react-lottie";
@@ -15,7 +15,7 @@ import animationData from "../animation/typing.json";
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal.js";
 import { ChatState } from "../Context/ChatProvider";
-const ENDPOINT = "http://localhost:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+const ENDPOINT = "https://talk-flow.onrender.com/";
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -71,7 +71,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
 
   const sendMessage = async (event) => {
-    if (event.key === "Enter" && newMessage) {
+    if ((event.key === "Enter" || event.type === "click") && newMessage) {
       socket.emit("stop typing", selectedChat._id);
       try {
         const config = {
@@ -221,7 +221,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               </div>
             )}
 
-            <FormControl
+            {/* <FormControl
               onKeyDown={sendMessage}
               id="first-name"
               isRequired
@@ -246,6 +246,50 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 value={newMessage}
                 onChange={typingHandler}
               />
+            </FormControl> */}
+
+            <FormControl
+              onKeyDown={sendMessage}
+              id="first-name"
+              isRequired
+              mt={3}
+            >
+              {istyping ? (
+                <div>
+                  <Lottie
+                    options={defaultOptions}
+                    // height={50}
+                    width={70}
+                    style={{ marginBottom: 15, marginLeft: 0 }}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
+              <Box display="flex">
+                <Input
+                  variant="filled"
+                  bg="#E0E0E0"
+                  placeholder="Enter a message.."
+                  value={newMessage}
+                  onChange={typingHandler}
+                  flexGrow={1}
+                />
+                <IconButton
+                  colorScheme="blue"
+                  variant="solid"
+                  aria-label="Send message"
+                  icon={<ArrowForwardIcon />}
+                  
+                  onClick={sendMessage}
+                  disabled={!newMessage}
+                  size="sm"
+                  position="absolute"
+                  right="1rem"
+                  top="50%"
+                  transform="translateY(-50%)"
+                />
+              </Box>
             </FormControl>
           </Box>
         </>
