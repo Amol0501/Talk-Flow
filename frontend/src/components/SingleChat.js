@@ -11,6 +11,9 @@ import ProfileModal from "./miscellaneous/ProfileModal";
 import ScrollableChat from "./ScrollableChat.js";
 import Lottie from "react-lottie";
 import animationData from "../animation/typing.json";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal.js";
@@ -266,7 +269,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               ) : (
                 <></>
               )}
-              <Box display="flex">
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                gap="5px ">
                 <Input
                   variant="filled"
                   bg="#E0E0E0"
@@ -275,20 +282,16 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   onChange={typingHandler}
                   flexGrow={1}
                 />
-                <IconButton
-                  colorScheme="blue"
-                  variant="solid"
-                  aria-label="Send message"
-                  icon={<ArrowForwardIcon />}
-                  
-                  onClick={sendMessage}
-                  disabled={!newMessage}
-                  size="sm"
-                  position="absolute"
-                  right="1rem"
-                  top="50%"
-                  transform="translateY(-50%)"
-                />
+
+                  <IconButton
+                    colorScheme="blue"
+                    variant="solid"
+                    aria-label="Send message"
+                    icon={<FontAwesomeIcon icon={faPaperPlane} />}
+                    onClick={sendMessage}
+                    disabled={!newMessage}
+                    size="sm"
+                  />
               </Box>
             </FormControl>
           </Box>
