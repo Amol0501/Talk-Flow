@@ -11,9 +11,6 @@ import ProfileModal from "./miscellaneous/ProfileModal";
 import ScrollableChat from "./ScrollableChat.js";
 import Lottie from "react-lottie";
 import animationData from "../animation/typing.json";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal.js";
@@ -258,12 +255,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               mt={3}
             >
               {istyping ? (
-                <div>
+                <div bg="transparent">
                   <Lottie
                     options={defaultOptions}
                     // height={50}
                     width={70}
-                    style={{ marginBottom: 15, marginLeft: 0 }}
+                    style={{ marginBottom: 15, marginLeft: 0}}
                   />
                 </div>
               ) : (
@@ -273,7 +270,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                gap="5px ">
+                gap="10px">
                 <Input
                   variant="filled"
                   bg="#E0E0E0"
@@ -282,16 +279,20 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   onChange={typingHandler}
                   flexGrow={1}
                 />
-
-                  <IconButton
-                    colorScheme="blue"
-                    variant="solid"
-                    aria-label="Send message"
-                    icon={<FontAwesomeIcon icon={faPaperPlane} />}
-                    onClick={sendMessage}
-                    disabled={!newMessage}
-                    size="sm"
-                  />
+                <IconButton
+                  colorScheme="blue"
+                  variant="solid"
+                  aria-label="Send message"
+                  icon={<ArrowForwardIcon />}
+                  
+                  onClick={sendMessage}
+                  disabled={!newMessage}
+                  size="sm"
+                  // position="absolute"
+                  // right="1rem"
+                  // top="50%"
+                  // transform="translateY(-50%)"
+                />
               </Box>
             </FormControl>
           </Box>
